@@ -1,5 +1,6 @@
 # TODO
 
+- for installs add symlink support to generate symlinks into the bin directory
 - how to handle jvms
 - start the java implementation we have the start in ck8s
 - add general mapping feature of uname (os) and uname -a (arch) support. the os and arch mapping is too complicated

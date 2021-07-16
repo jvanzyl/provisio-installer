@@ -13,4 +13,4 @@ arch=${4}
 [ -z "${profile}" ] && echo && echo "You must provide a profile file!" && echo && exit
 [ ! -f "${profile}" ] && echo && echo "The profile file you specified doesn't exist!" && echo && exit
 [ -z "${target}" ] && echo && echo "You must provide a target directory!" && echo && exit
-provisionToolProfile "${profile}" "$(realpath ${target})" "${os}" "${arch}" 
+provisionToolProfile "$(realpath ${profile})" "$(realpath ${target})" "${os}" "${arch}"

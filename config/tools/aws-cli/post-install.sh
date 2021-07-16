@@ -59,6 +59,6 @@ elif [[ ${os} == "Linux" ]]; then
   # -i = installation directory
   # -b = directory to create symlinks to aws: doesn't work cross OS
   unzip ${file} -d /tmp
-  /tmp/aws/install -i ${installLocation}
+  /tmp/aws/install -i ${installLocation} -b ${bin}
   rm -rf /tmp/aws
 fi

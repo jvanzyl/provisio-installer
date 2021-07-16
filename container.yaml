@@ -1,3 +1,4 @@
+registry: docker.io
 repository: jvanzyl
 image: provisio-bash
 version: {{maven.version}}
