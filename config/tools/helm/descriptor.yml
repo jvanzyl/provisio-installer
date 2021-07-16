@@ -1,0 +1,15 @@
+---
+id: helm
+name: Helm
+defaultVersion: 3.6.3
+layout: file
+executable: helm
+packaging: TARGZ_STRIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
+# https://get.helm.sh/helm-v3.6.3-darwin-amd64.tar.gz
+urlTemplate: https://get.helm.sh/helm-v{version}-{os}-{arch}.tar.gz

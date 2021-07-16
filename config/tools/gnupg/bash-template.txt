@@ -1,0 +1,2 @@
+GNUPG_HOME=${PROVISIO_PROFILE_BIN}/installs/gnupg
+export PATH="${GNUPG_HOME}/bin:${GNUPG_HOME}/libexec:${PATH}"

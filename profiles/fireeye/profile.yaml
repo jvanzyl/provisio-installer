@@ -1,0 +1,33 @@
+tools:
+  terraform:
+    version: 0.15.3
+  yq:
+    version: 4.9.6
+  octant:
+    version: 0.22.0
+  cr:
+    version: 1.2.1
+  mustache:
+    version: 1.2.1
+  kind:
+    version: 0.11.1
+  dimg:
+    version: master
+  eksctl:
+    version: 0.56.0
+  aws-cli:
+    version: 2.2.14
+  aws-iam-authenticator:
+    version: 0.5.3
+  jenv:
+    version: master
+  sops:
+    version: 3.7.1
+  jq:
+    version: 1.6
+  kubectl:
+    version: 1.21.0
+  helm:
+    version: 3.6.3
+  krew:
+    version: 0.4.1

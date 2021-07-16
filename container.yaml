@@ -1,0 +1,10 @@
+repository: jvanzyl
+image: provisio-bash
+version: {{maven.version}}
+buildArgs:
+  VERSION: {{maven.version}}
+run:
+  shell: /bin/bash
+  mounts:
+    cache: "${PWD}/.cache:/root/.provisio/.cache"
+    profiles: "${PWD}/profiles:/root/.provisio/profiles"

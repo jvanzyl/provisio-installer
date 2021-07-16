@@ -1,0 +1,12 @@
+---
+id: eksctl
+name: EksCtl
+defaultVersion: 0.56.0
+layout: file
+executable: eksctl
+packaging: TARGZ
+# https://github.com/weaveworks/eksctl/releases/download/0.56.0/eksctl_Linux_amd64.tar.gz
+# https://github.com/weaveworks/eksctl/releases/download/0.56.0/eksctl_Darwin_amd64.tar.gz
+urlTemplate: https://github.com/weaveworks/eksctl/releases/download/{version}/eksctl_{os}_{arch}.tar.gz
+archMappings:
+  x86_64: amd64

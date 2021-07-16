@@ -1,0 +1,14 @@
+bin
+.bin/
+.cache/
+init.bash
+
+pom.xml
+*.iml
+.idea/
+
+*.zip
+*.tar.gz
+*.tgz
+*.pkg
+*.dmg

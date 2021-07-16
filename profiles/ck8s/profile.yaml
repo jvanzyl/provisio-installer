@@ -1,0 +1,26 @@
+# ------------------------------------------------------------------------------
+# CK8s Agent
+# ------------------------------------------------------------------------------
+tools:
+  terraform:
+    version: 0.15.3
+  yq:
+    version: 4.9.6
+  cr:
+    version: 1.2.1
+  mustache:
+    version: 1.2.1
+  eksctl:
+    version: 0.56.0
+  aws-cli:
+    version: 2.2.14
+  aws-iam-authenticator:
+    version: 0.5.3
+  sops:
+    version: 3.7.1
+  jq:
+    version: 1.6
+  kubectl:
+    version: 1.21.0
+  helm:
+    version: 3.6.3

@@ -1,0 +1,16 @@
+---
+id: jq
+name: jq
+defaultVersion: 1.6
+layout: file
+executable: jq
+packaging: FILE
+osMappings:
+  Darwin: osx
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+# https://github.com/stedolan/jq/releases/download/jq-1.6/jq-osx-amd64
+linuxUrlTemplate: https://github.com/stedolan/jq/releases/download/jq-{version}/jq-linux64
+darwinUrlTemplate: https://github.com/stedolan/jq/releases/download/jq-{version}/jq-osx-amd64

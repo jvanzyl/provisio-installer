@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# this causes the install to error out after the first successful download...
+#set -e
+[ -n "$PROVISIO_DEBUG" ] && set -x
+source ${PROVISIO_ROOT}/config/provisio-functions.bash
+
+profile=$1
+target=$2
+os=${3}
+arch=${4}
+
+[ -z "${profile}" ] && echo && echo "You must provide a profile file!" && echo && exit
+[ ! -f "${profile}" ] && echo && echo "The profile file you specified doesn't exist!" && echo && exit
+[ -z "${target}" ] && echo && echo "You must provide a target directory!" && echo && exit
+provisionToolProfile "${profile}" "$(realpath ${target})" "${os}" "${arch}" 

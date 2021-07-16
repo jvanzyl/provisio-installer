@@ -1,0 +1,2 @@
+AWS_CLI_HOME=${PROVISIO_PROFILE_BIN}/installs/aws-cli
+export PATH="${AWS_CLI_HOME}:${PATH}"

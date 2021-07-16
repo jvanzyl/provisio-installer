@@ -1,0 +1,10 @@
+---
+id: jenv
+name: jEnv
+layout: directory
+executable: jenv
+architecture: amd64
+namingStyle: LOWER
+packaging: GIT
+defaultVersion: master
+urlTemplate: https://github.com/jenv/jenv.git
