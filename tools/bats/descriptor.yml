@@ -1,0 +1,8 @@
+---
+id: bats
+name: BATS
+defaultVersion: master
+layout: directory
+executable: bats
+packaging: GIT
+urlTemplate: https://github.com/bats-core/bats-core.git

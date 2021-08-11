@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# this causes the install to error out after the first successful download...
+#set -e
+[ -n "$PROVISIO_DEBUG" ] && set -x
+source ${PROVISIO_FUNCTIONS}
+
+profile=$1
+[ -z "${profile}" ] && echo && echo "You must provide a profile!" && echo && exit
+installToolProfile "${profile}"

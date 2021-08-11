@@ -1,0 +1,15 @@
+---
+id: terraform
+name: Terraform
+defaultVersion: 0.15.3
+layout: file
+executable: terraform
+packaging: ZIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://releases.hashicorp.com/terraform/1.0.2/terraform_1.0.2_linux_amd64.zip
+# https://releases.hashicorp.com/terraform/1.0.2/terraform_1.0.2_darwin_amd64.zip
+urlTemplate: https://releases.hashicorp.com/terraform/{version}/terraform_{version}_{os}_{arch}.zip

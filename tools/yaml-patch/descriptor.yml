@@ -1,0 +1,13 @@
+---
+id: yaml-patch
+name: yaml-patch
+defaultVersion: 0.0.10
+layout: file
+executable: yaml-patch
+packaging: FILE
+osMappings:
+  Darwin: darwin
+  Linux: linux
+# https://github.com/krishicks/yaml-patch/releases/download/v0.0.10/yaml_patch_linux
+# https://github.com/krishicks/yaml-patch/releases/download/v0.0.10/yaml_patch_darwin
+urlTemplate: https://github.com/krishicks/yaml-patch/releases/download/v{version}/yaml_patch_{os}

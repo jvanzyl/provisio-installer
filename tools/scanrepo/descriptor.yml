@@ -1,0 +1,15 @@
+---
+id: scanrepo
+name: UK Home Office Repo Scanner
+defaultVersion: 0.4.0
+layout: file
+executable: scanrepo
+packaging: TARGZ
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/UKHomeOffice/repo-security-scanner/releases/download/0.4.0/scanrepo-0.4.0-linux-amd64.tar.gz
+# https://github.com/UKHomeOffice/repo-security-scanner/releases/download/0.4.0/scanrepo-0.4.0-darwin-amd64.tar.gz
+urlTemplate: https://github.com/UKHomeOffice/repo-security-scanner/releases/download/{version}/scanrepo-{version}-{os}-{arch}.tar.gz

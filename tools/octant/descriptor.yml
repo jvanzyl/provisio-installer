@@ -1,0 +1,15 @@
+---
+id: octant
+name: Octant
+defaultVersion: 0.22.0
+layout: file
+executable: octant
+packaging: TARGZ_STRIP
+osMappings:
+  Darwin: macOS
+archMappings:
+  x86_64: 64bit
+# This URL is inconsistent as it uses v{version} and {version} together
+# https://github.com/vmware-tanzu/octant/releases/download/v0.22.0/octant_0.22.0_Linux-arm64.tar.gz
+# https://github.com/vmware-tanzu/octant/releases/download/v0.22.0/octant_0.22.0_macOS-64bit.tar.gz
+urlTemplate: https://github.com/vmware-tanzu/octant/releases/download/v{version}/octant_{version}_{os}-{arch}.tar.gz

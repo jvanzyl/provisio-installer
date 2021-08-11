@@ -1,0 +1,16 @@
+---
+id: mustache
+name: Mustache
+defaultVersion: 1.2.1
+layout: file
+executable: mustache
+packaging: TARGZ
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# This URL is inconsistent as it uses v{version} and {version} together
+# https://github.com/cbroglie/mustache/releases/download/v1.2.2/mustache_1.2.2_linux_amd64.tar.gz
+# https://github.com/cbroglie/mustache/releases/download/v1.2.2/mustache_1.2.2_darwin_amd64.tar.gz
+urlTemplate: https://github.com/cbroglie/mustache/releases/download/v{version}/mustache_{version}_{os}_{arch}.tar.gz

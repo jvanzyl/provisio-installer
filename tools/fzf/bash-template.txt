@@ -1,0 +1,14 @@
+FZF_HOME=${PROVISIO_PROFILE_BIN}/fzf
+export PATH="${FZF_HOME}:${PATH}"
+
+# Only enable completion if we are in interactive mode
+if [[ $- == *i* ]]; then
+  shell=$(basename $SHELL)
+  if [ "$shell" = "bash" ]; then
+    source "${FZF_HOME}/bash/completion.bash" 2> /dev/null
+    source "${FZF_HOME}/bash/key-bindings.bash" 2> /dev/null
+  elif [ "$shell" = "zsh" ]; then
+    source "${FZF_HOME}/zsh/completion.zsh" 2> /dev/null
+    source "${FZF_HOME}/zsh/key-bindings.zsh" 2> /dev/null
+  fi
+fi

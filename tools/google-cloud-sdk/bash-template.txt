@@ -1,0 +1,2 @@
+CLOUDSDK_ROOT_DIR=${PROVISIO_PROFILE_BIN}/google-cloud-sdk
+export PATH="${CLOUDSDK_ROOT_DIR}/bin:${PATH}"

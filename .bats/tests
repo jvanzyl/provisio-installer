@@ -1,0 +1,8 @@
+#!/usr/bin/env bats
+
+source ../libexec/provisio-functions.bash
+
+@test "Url encode version" {
+  result=$(urlEncode "jdk-11.0.12+7")
+  [ "${result}" = "jdk-11.0.12%2b7" ]
+}

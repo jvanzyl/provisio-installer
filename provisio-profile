@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# Foreground
+# Black        0;30     Dark Gray     1;30
+# Red          0;31     Light Red     1;31
+# Green        0;32     Light Green   1;32
+# Brown/Orange 0;33     Yellow        1;33
+# Blue         0;34     Light Blue    1;34
+# Purple       0;35     Light Purple  1;35
+# Cyan         0;36     Light Cyan    1;36
+# Light Gray   0;37     White         1;37
+
+# Background
+# Black        0;40
+# Red          0;41
+# Green        0;42
+# Yellow       0;43
+# Blue         0;44
+# Purple       0;45
+# Cyan         0;46
+# White        0;47
+
+RED='\e[0;31m'
+GREEN='\e[0;32m'
+YELLOW_ON_BLACK='\e[0;40m\e[1;33m'
+NC='\e[0m' # No Color
+
+set -e
+[ -n "$PROVISIO_DEBUG" ] && set -x
+source ${PROVISIO_FUNCTIONS}
+
+if [ $# -eq 1 ]; then
+  profile=${1}
+  (
+    cd ${PROVISIO_ROOT}/.bin
+    [ -f profile ] && rm -f profile
+    [ -f current ] && rm -f current
+    echo ${profile} > current
+    ln -s ${PROVISIO_ROOT}/.bin/${profile} ${PROVISIO_ROOT}/.bin/profile
+  )
+  echo "Setting provisio profile to: ${profile}"
+else
+  current=$(cat ${PROVISIO_ROOT}/.bin/current)
+  (
+    cd ${PROVISIO_ROOT}/profiles
+    for profile in $(ls -d -1 *)
+    do
+      if [ "${profile}" = "${current}" ]
+      then
+        echo -e "${YELLOW_ON_BLACK}${profile}${NC}"
+      else
+        echo ${profile}
+      fi
+    done
+  )
+fi

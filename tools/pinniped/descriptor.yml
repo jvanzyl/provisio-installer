@@ -1,0 +1,15 @@
+---
+id: pinniped
+name: Pinniped
+defaultVersion: 0.9.2
+layout: file
+executable: pinniped
+packaging: FILE
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/vmware-tanzu/pinniped/releases/download/v0.9.2/pinniped-cli-linux-amd64
+# https://github.com/vmware-tanzu/pinniped/releases/download/v0.9.2/pinniped-cli-darwin-amd64
+urlTemplate: https://github.com/vmware-tanzu/pinniped/releases/download/v{version}/pinniped-cli-{os}-{arch}

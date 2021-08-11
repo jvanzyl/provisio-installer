@@ -1,0 +1,3 @@
+JENV_ROOT=${PROVISIO_PROFILE_BIN}/jenv
+export PATH="${JENV_ROOT}/bin:$PATH"
+eval "$(jenv init -)"

@@ -1,0 +1,8 @@
+---
+id: dimg
+name: Dimg
+defaultVersion: master
+layout: file
+executable: dimg
+packaging: FILE
+urlTemplate: https://raw.githubusercontent.com/jvanzyl/dimg/{version}/dimg

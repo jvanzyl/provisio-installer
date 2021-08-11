@@ -1,0 +1,15 @@
+---
+id: dive
+name: Dive
+defaultVersion: 0.10.0
+layout: file
+executable: dive
+packaging: TARGZ
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.tar.gz
+# https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_darwin_amd64.tar.gz
+urlTemplate: https://github.com/wagoodman/dive/releases/download/v{version}/dive_{version}_{os}_{arch}.tar.gz

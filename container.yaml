@@ -1,0 +1,11 @@
+registry: docker.io
+repository: jvanzyl
+image: provisio-bash
+version: {{maven.version}}
+buildArgs:
+  VERSION: {{maven.version}}
+run:
+  shell: /bin/bash
+  mounts:
+    cache: "${PWD}/.bin/.cache:/root/.provisio/.bin/.cache"
+    profiles: "${PWD}/profiles:/root/.provisio/profiles"

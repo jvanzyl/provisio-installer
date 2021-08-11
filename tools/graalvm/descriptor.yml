@@ -1,0 +1,14 @@
+---
+id: graalvm
+name: GraalVM
+defaultVersion: 21.1.0
+layout: directory
+packaging: TARGZ_STRIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.1.0/graalvm-ce-java11-darwin-amd64-21.1.0.tar.gz
+# https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-21.1.0/graalvm-ce-java11-linux-amd64-21.1.0.tar.gz
+urlTemplate: https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{version}/graalvm-ce-java11-{os}-{arch}-{version}.tar.gz

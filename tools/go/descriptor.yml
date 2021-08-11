@@ -1,0 +1,15 @@
+---
+id: go
+name: Go
+defaultVersion: 1.16.6
+layout: directory
+executable: go
+packaging: TARGZ_STRIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://golang.org/dl/go1.15.14.linux-arm64.tar.gz
+# https://golang.org/dl/go1.16.6.darwin-amd64.tar.gz
+urlTemplate: https://golang.org/dl/go{version}.{os}-{arch}.tar.gz

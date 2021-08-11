@@ -1,0 +1,2 @@
+GO_ROOT=${PROVISIO_PROFILE_BIN}/go
+export PATH="${GO_ROOT}/bin:${PATH}"

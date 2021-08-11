@@ -1,0 +1,8 @@
+## -----------------------------------------------------------------------------
+## PROVISIO_ROOT is currently not re-locatable and must be in ${HOME}/.provisio
+## -----------------------------------------------------------------------------
+
+export PROVISIO_ROOT=${HOME}/.provisio
+export PROVISIO_BIN=${PROVISIO_ROOT}
+export PROVISIO_PROFILE_BIN=${PROVISIO_ROOT}/.bin/profile
+export PATH=${PROVISIO_BIN}:${PROVISIO_PROFILE_BIN}:$PATH
