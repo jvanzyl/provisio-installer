@@ -356,7 +356,7 @@ function installShellInitializationTemplate() {
 
   provisioBashTemplate=${PROVISIO_TOOLS}/bash-template.txt
   profileBashTemplate=${profileDirectorySymlink}/.init.bash
-  echo "## -----------------------------------------------------------------------------" >> ${profileBashTemplate}
+  echo "## -----------------------------------------------------------------------------" > ${profileBashTemplate}
   echo "## Addition from ${provisioBashTemplate}" >> ${profileBashTemplate}
   cat ${provisioBashTemplate} >> ${profileBashTemplate}
 
