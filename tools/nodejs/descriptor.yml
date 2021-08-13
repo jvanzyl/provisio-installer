@@ -1,0 +1,16 @@
+---
+id: nodejs
+name: nodejs
+defaultVersion: 14.17.5
+layout: directory
+executable: nodejs
+packaging: TARGZ_STRIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: x64
+# https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.xz
+# https://nodejs.org/dist/v14.17.5/node-v14.17.5-darwin-x64.tar.gz
+darwinUrlTemplate: https://nodejs.org/dist/v{version}/node-v{version}-{os}-{arch}.tar.gz
+linuxUrlTemplate: https://nodejs.org/dist/v{version}/node-v{version}-{os}-{arch}.tar.xz
