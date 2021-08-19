@@ -13,3 +13,7 @@ Install your tools!
 ```
 ./provisio install home
 ```
+
+## Similar Project
+
+- https://cashapp.github.io/hermit/
