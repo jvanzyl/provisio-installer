@@ -1,0 +1,9 @@
+---
+id: jbang
+name: JBang
+defaultVersion: 0.79.0
+layout: directory
+executable: jbang
+packaging: ZIP
+# https://github.com/jbangdev/jbang/releases/download/v0.79.0/jbang.zip
+urlTemplate: https://github.com/jbangdev/jbang/releases/download/v{version}/jbang.zip
