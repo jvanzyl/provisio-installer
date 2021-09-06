@@ -1,0 +1,15 @@
+---
+id: vscodium
+name: VSCodium
+defaultVersion: 1.59
+layout: directory
+packaging: ZIP
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: x64
+# https://github.com/VSCodium/vscodium/releases/download/1.59.1/VSCodium-linux-x64-1.59.1.tar.gz
+# https://github.com/VSCodium/vscodium/releases/download/1.59.1/VSCodium-darwin-x64-1.59.1.zip
+linuxUrlTemplate: https://github.com/VSCodium/vscodium/releases/download/{version}/VSCodium-{os}-{arch}-{version}.tar.gz
+darwinUrlTemplate: https://github.com/VSCodium/vscodium/releases/download/{version}/VSCodium-{os}-{arch}-{version}.zip
