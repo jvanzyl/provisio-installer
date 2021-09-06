@@ -258,9 +258,9 @@ function provisionTool() {
       file=$(retrieveArtifact ${id} ${version} ${url} ${filename})
       if [ ! -z "${layout}" -a "${layout}" = "directory" ]; then
         mkdir -p ${installLocation} > /dev/null 2>&1
-        unzip -o ${file} -d ${installLocation}
+        unzip -q -o ${file} -d ${installLocation}
       else
-        unzip -o ${file} -d ${bin}
+        unzip -q -o ${file} -d ${bin}
       fi
     elif [ "${packaging}" = "GIT" ]; then
       if [ ! -d ${installLocation} ]; then
