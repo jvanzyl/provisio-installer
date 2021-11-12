@@ -4,6 +4,7 @@ name: VSCodium
 defaultVersion: 1.59
 layout: directory
 packaging: ZIP
+executable: VSCodium.app
 osMappings:
   Darwin: darwin
   Linux: linux

@@ -3,6 +3,7 @@ id: gnupg
 name: GNUPG
 defaultVersion: 2.2.28
 layout: directory
+executable: gpg
 packaging: INSTALLER
 darwinUrlTemplate: https://downloads.sourceforge.net/project/gpgosx/GnuPG-{version}.dmg
 linuxUrlTemplate: https://awscli.amazonaws.com/awscli-exe-linux-{arch}-{version}.zip

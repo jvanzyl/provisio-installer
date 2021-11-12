@@ -4,7 +4,6 @@ name: Google Cloud SDK
 defaultVersion: 348.0.0
 layout: directory
 executable: gcloud
-architecture: x86_64
 packaging: TARGZ
 osMappings:
   Darwin: darwin

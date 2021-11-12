@@ -3,6 +3,7 @@ id: ck8s
 name: ck8s
 defaultVersion: 2.0.5
 layout: directory
+executable: ck8s
 packaging: TARGZ
 # https://repo1.maven.org/maven2/ca/vanzyl/concord/ck8s/ck8s-local/2.0.5/ck8s-local-2.0.5.tar.gz
 urlTemplate: https://repo1.maven.org/maven2/ca/vanzyl/concord/ck8s/ck8s-local/{version}/ck8s-local-{version}.tar.gz

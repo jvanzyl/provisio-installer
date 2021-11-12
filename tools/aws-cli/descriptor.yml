@@ -3,6 +3,7 @@ id: aws-cli
 name: AWS CLI v2
 defaultVersion: 2.2.14
 layout: directory
+executable: aws
 packaging: INSTALLER
 # Inconsistent naming so we just have templates for each OS
 darwinUrlTemplate: https://awscli.amazonaws.com/AWSCLIV2-{version}.pkg

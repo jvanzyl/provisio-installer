@@ -3,6 +3,7 @@ id: java
 name: Java
 defaultVersion: "jdk-11.0.12+7"
 layout: directory
+executable: java
 packaging: TARGZ
 osMappings:
   Darwin: mac
