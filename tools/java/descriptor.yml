@@ -49,4 +49,4 @@ archMappings:
 
 # urlTemplate: https://api.adoptium.net/v3/binary/version/{version}/{os}/{arch}/{image_type=jdk|jre}/{jvm_impl=hotspot}/{heap_size=normal|large}/{vendor=eclipse}?project={project=jdk|valhalla|metropolis|jfr|shenandoah}
 
-urlTemplate: https://api.adoptium.net/v3/binary/version/{version}/{os}/{arch}/jdk/{hotspot}/normal/adoptium?project=jdk
+urlTemplate: https://api.adoptium.net/v3/binary/version/{version}/{os}/{arch}/jdk/hotspot/normal/adoptium?project=jdk
