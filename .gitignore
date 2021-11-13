@@ -3,6 +3,7 @@ bin
 .cache/
 init.bash
 profiles/
+target/
 
 *.iml
 .idea/
