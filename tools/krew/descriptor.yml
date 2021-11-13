@@ -10,6 +10,6 @@ osMappings:
   Linux: linux
 archMappings:
   x86_64: amd64
-urlTemplate: https://github.com/kubernetes-sigs/krew/releases/download/v{version}/krew.tar.gz
-# Now this tarball contains the versions for all systems (sigh)
-tarSingleFileToExtract: ./krew-{os}_{arch}
+# https://github.com/kubernetes-sigs/krew/releases/download/v0.4.2/krew-darwin_amd64.tar.gz
+# https://github.com/kubernetes-sigs/krew/releases/download/v0.4.2/krew-linux_amd64.tar.gz
+urlTemplate: https://github.com/kubernetes-sigs/krew/releases/download/v{version}/krew-{os}_{arch}.tar.gz

@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-# provisioFunctions=$1
-# profileYaml=$2
-# profileBinDirectory=$3
-# file=$4
+provisioFunctions=${1}
+profile=${2}
+bin=${3}
+filename=${4}
+url=${5}
+version=${6}
+id=${7}
+installLocation=${8}
+os=${9}
+arch=${10}
 
-source $1
-profile=$2
-bin=$3
-
+source ${provisioFunctions}
 create_variables $profile
+
+# The binary in the tarfile is named oddly
+mv ${bin}/krew-${os}_${arch} ${bin}/krew
 
 for plugin in ${tools_krew_plugins[*]}
 do
