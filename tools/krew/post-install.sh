@@ -14,9 +14,6 @@ arch=${10}
 source ${provisioFunctions}
 create_variables $profile
 
-# The binary in the tarfile is named oddly
-mv ${bin}/krew-${os}_${arch} ${bin}/krew
-
 for plugin in ${tools_krew_plugins[*]}
 do
   ${bin}/krew install $plugin
