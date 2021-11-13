@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# this causes the install to error out after the first successful download...
+#set -e
+[ -n "$PROVISIO_DEBUG" ] && set -x
+source ${PROVISIO_FUNCTIONS}
+testResourcesDirectory="${PROVISIO_ROOT}/target/test-resources"
+rm -rf ${testResourcesDirectory} > /dev/null 2>&1
+mkdir -p ${testResourcesDirectory} > /dev/null 2>&1
+provisioTests "test" > ${testResourcesDirectory}/test-tool-urls.yaml
+
+PROFILE=${testResourcesDirectory}/test-profile.yaml
+echo "tools:" > ${PROFILE}
+for d in `find ${PROVISIO_ROOT}/tools -name descriptor.yml`
+do
+  eval $(parse_yaml_with_lists $d)
+  echo "  ${id}:" >> ${PROFILE}
+  echo "    version: ${defaultVersion}" >> ${PROFILE}
+done
