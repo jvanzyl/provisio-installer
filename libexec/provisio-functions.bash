@@ -255,11 +255,6 @@ function provisionTool() {
       else
         unzip -q -o ${file} -d ${bin}
       fi
-    elif [ "${packaging}" = "GIT" ]; then
-      if [ ! -d ${installLocation} ]; then
-        git clone $url ${installLocation}
-        (cd ${installLocation}; rm -rf .git)
-      fi
     elif [ "${packaging}" = "INSTALLER" ]; then
       echo "Running installer for ${name} ..."
     else
