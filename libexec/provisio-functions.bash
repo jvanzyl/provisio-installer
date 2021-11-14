@@ -70,23 +70,6 @@ function create_variables() {
 ##
 ## https://stackoverflow.com/questions/296536/how-to-urlencode-data-for-curl-command
 ## ---------------------------------------------------------------------------------------------------------------------
-function urlEncode() {
-  local string="${1}"
-  local strlen=${#string}
-  local encoded=""
-  local pos c o
-
-  for (( pos=0 ; pos<strlen ; pos++ )); do
-     c=${string:$pos:1}
-     case "$c" in
-        [-_.~a-zA-Z0-9] ) o="${c}" ;;
-        * )               printf -v o '%%%02x' "'$c"
-     esac
-     encoded+="${o}"
-  done
-  echo "${encoded}"    # You can either set a return variable (FASTER)
-  REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
-}
 
 function retrieveArtifact() {
   id="${1}"
@@ -116,18 +99,28 @@ function retrieveArtifact() {
 ## Tool provisioning
 ## ---------------------------------------------------------------------------------------------------------------------
 
+function debug() {
+  message=${1}
+  [ -n "$PROVISIO_DEBUG_FUNCTIONS" ] && echo ${message}
+}
+
+function debugN() {
+  message=${1}
+  [ -n "$PROVISIO_DEBUG_FUNCTIONS" ] && echo -n ${message}
+}
+
 function provisionTool() {
 
-  # $1 tool profile yaml (required)
-  # $2 tool configuration yaml (required)
-  # $3 bin directory (required)
-
-  toolProfileYaml=${1}
-  toolConfigurationYaml=${2}
-  bin=${3}
-  version=${4}
-  [[ -z ${5} ]] && os=$(uname) || os=${5}
-  [[ -z ${6} ]] && arch=$(uname -m) || arch=${6}
+  profileName=${1}
+  # The profile being provisioned: ${HOME}/.provisio/profiles/jvanzyl/profile.yaml
+  toolProfileYaml=${2}
+  # Tool descriptor yaml: ${HOME}/.provisio/tools/jenv/descriptor.yml
+  toolConfigurationYaml=${3}
+  bin=${4}
+  version=${5}
+  
+  os=$(uname) 
+  arch=$(uname -m) 
 
   unset id
   unset name
@@ -137,6 +130,8 @@ function provisionTool() {
   unset namingStyle
   unset packaging
   unset layout
+  unset osMappings
+  unset archMappings
   unset urlTemplate
   unset darwinUrlTemplate
   unset linuxUrlTemplate
@@ -144,53 +139,49 @@ function provisionTool() {
   unset installation
 
   toolDirectory=$(dirname ${toolConfigurationYaml})
-
-  # We are doing everything inside a subshell with the tools directory so that when people
-  # write scripts they are relative to the directory with resources that might be referenced
+  profileVersionsDirectory="${PROVISIO_ROOT}/.bin/${profileName}/.versions"
 
   (
-
-  cd ${toolDirectory}
-
-  if [ -f $yaml ]
-  then
-
+    # We are doing everything inside a subshell with the tools directory so that when people
+    # write scripts they are relative to the directory with resources that might be referenced
+    cd ${toolDirectory}
     eval $(parse_yaml_with_lists ${toolConfigurationYaml})
-
     executableLocation="${bin}/${executable}"
     installLocation="${bin}/${id}"
 
-    # Executables are currently all stored in one directory, and installations live
-    # in their own directory.
-
-    if [[ ${layout} == "file" ]]
-    then
-      echo -n "Checking if the executable ${executable} exists here: ${executableLocation} ... "
-      [[ -f ${executableLocation} ]] && echo "yes, moving on ..." && return || echo "no, installing ..."
-    elif [[ ${layout} == "directory" ]]
-    then
-      echo -n "Checking if the installation ${id} exists here: ${installLocation} ... "
-      [[ -d ${installLocation} ]] && echo "yes, moving on..." && return || echo "no, installing ..."
+    # Executables are currently all stored in one directory, and installations live in their own directory. We
+    # check 
+    installedVersion=$(cat ${profileVersionsDirectory}/${id} 2> /dev/null)
+    if [ "${layout}" = "file" ]; then
+       debugN "Checking if the version (${version}:${installedVersion}) is up-to-date, and the executable ${executable} exists here: ${executableLocation} ... "      
+      if [ "${version}" = "${installedVersion}" -a -f "${executableLocation}" ]; then
+        debug "yes, moving on ..."
+        return
+      else
+        rm -f ${executableLocation}
+      fi
+    elif [ "${layout}" = "directory" ]; then
+      debugN "Checking if the version (${version}:${installedVersion}) if up-to-date, and the installation ${id} exists here: ${installLocation} ... "
+      if [ "${version}" = "${installedVersion}" -a -d "${installLocation}" ]; then
+        debug "yes, moving on..." 
+        return
+      else
+        rm -rf ${installLocation}
+      fi
     fi
+    debug "no, installing ..."
 
     [ ! -d ${bin} ] && mkdir -p ${bin}
 
+    # Select the OS template is available. Uses the OS name from the system: Darwin, Linux, ...
     if [ "${os}" = "Darwin" -a ! -z "${darwinUrlTemplate}" ]; then
       urlTemplate=${darwinUrlTemplate}
     elif [ "${os}" = "Linux" -a ! -z "${linuxUrlTemplate}" ]; then
       urlTemplate=${linuxUrlTemplate}
     fi
 
-    # --------------------------------------------------------------------------
-    # osMappings:
-    #   Darwin: darwin
-    #   Linux: linux
-    # archMappings:
-    #   x86_64: amd64
-    # --------------------------------------------------------------------------
     eval 'osMappings=(${!'"osMappings"'@})'
-    for i in "${osMappings[@]}"
-    do
+    for i in "${osMappings[@]}"; do
       # What is returned by $(uname) like Darwin or Linux
       osIdentifier=`echo ${i} | sed 's/osMappings_//'`
       # What the tool uses in its naming like linux os osx
@@ -200,8 +191,7 @@ function provisionTool() {
     done
 
     eval 'archMappings=(${!'"archMappings_"'@})'
-    for i in "${archMappings[@]}"
-    do
+    for i in "${archMappings[@]}"; do
       # What is returned by $(uname -m) like x86_64
       archIdentifier=`echo ${i} | sed 's/archMappings_//'`
       # What the tool uses in its naming like amd64
@@ -210,11 +200,14 @@ function provisionTool() {
       arch=$(echo ${arch} | sed -e "s/${archIdentifier}/${archIdentifierToolUses}/")
     done
 
-    urlEncodedVersion=$(urlEncode ${version})
-    url=`echo $urlTemplate | \
-      sed -e "s@{version}@${urlEncodedVersion}@g" \
+    url=$(echo $urlTemplate | \
+      sed -e "s@{version}@${version}@g" \
           -e "s@{os}@${os}@g" \
-          -e "s@{arch}@${arch}@g"`
+          -e "s@{arch}@${arch}@g")
+
+
+    # At this point we have the mapped os and arch version, not the original values as returned by uname. We
+    # may need to consider keeping the original value and the mapped value for installation scripts.
 
     # Most of the binaries we have downloaded to date have urls with names of files, but
     # there are APIs for retrieving urls like Eclipse Adoptium where we can't use the
@@ -235,7 +228,7 @@ function provisionTool() {
         # the specific target platform
         # --------------------------------------------------------------------
         tarSingleFileToExtract=`echo $tarSingleFileToExtract | \
-          sed -e "s@{version}@${urlEncodedVersion}@g" \
+          sed -e "s@{version}@${version}@g" \
               -e "s@{os}@${os}@g" \
               -e "s@{arch}@${arch}@g"`
 
@@ -273,22 +266,22 @@ function provisionTool() {
       echo "Unknown packaging type ${packaging}"
       exit
     fi
-  fi
-
-  # Now check to see if there is any additional processing required for this tool
-  installScript="${toolDirectory}/post-install.sh"
-  if [ -f ${installScript} ]; then
-    ${installScript} \
-      "${PROVISIO_FUNCTIONS}" \
-      "${toolProfileYaml}" \
-      "${bin}" \
-      "${filename}" \
-      "${url}" \
-      "${version}" \
-      "${id}" \
-      "${installLocation}" \
-      "${os}"
-  fi
+  
+    # Now check to see if there is any additional processing required for this tool
+    installScript="${toolDirectory}/post-install.sh"
+    if [ -f ${installScript} ]; then
+      ${installScript} \
+        "${PROVISIO_FUNCTIONS}" \
+        "${toolProfileYaml}" \
+        "${bin}" \
+        "${filename}" \
+        "${url}" \
+        "${version}" \
+        "${id}" \
+        "${installLocation}" \
+        "${os}" \
+        "${arch}"
+    fi
   )
 }
 
@@ -301,10 +294,13 @@ function provisionTool() {
 ## ---------------------------------------------------------------------------------------------------------------------
 
 function provisionToolProfile() {
-  profileYamlFile=${1}
-  bin=${2}
-  os=${3}
-  arch=${4}
+  # The profile being provisioned: ${PROVISIO_ROOT}/profiles/jvanzyl/profile.yaml
+  profileName=${1}
+  profileYamlFile=${2}
+  bin=${3}
+
+  profileVersionsDirectory="${PROVISIO_ROOT}/.bin/${profileName}/.versions"
+  mkdir -p ${profileVersionsDirectory} > /dev/null 2>&1
 
   eval $(parse_yaml_with_lists $profileYamlFile)
   eval 'tools=(${!'"tools_"'@})'
@@ -317,7 +313,9 @@ function provisionToolProfile() {
       # Extract the version of the tool specified
       version=${!i}
       tool_descriptor=${PROVISIO_TOOLS}/${tool}/descriptor.yml
-      provisionTool ${profileYamlFile} ${tool_descriptor} ${bin} ${version} ${os} ${arch}
+      provisionTool ${profileName} ${profileYamlFile} ${tool_descriptor} ${bin} ${version}
+      # After successful provisioning, record the version of the tool provisioned
+      echo -n "${version}" > ${profileVersionsDirectory}/${tool}
     fi
   done
 
@@ -483,6 +481,49 @@ function installToolProfile() {
   ln -s "${PROVISIO_ROOT}/.bin/${profileName}" "${PROVISIO_ROOT}/.bin/profile"
   echo ${profileName} > "${PROVISIO_ROOT}/.bin/current"
 
-  provisionToolProfile ${profileYaml} ${bin}
+  provisionToolProfile ${profileName} ${profileYaml} ${bin}
   installShellInitializationTemplate ${profileDirectorySymlink} ${profileYaml} ${profileShellInit}
+}
+
+## ---------------------------------------------------------------------------------------------------------------------
+## Testing
+## ---------------------------------------------------------------------------------------------------------------------
+## Various test utilities 
+## ---------------------------------------------------------------------------------------------------------------------
+
+function provisioTests() {
+  # The profile being provisioned: ${HOME}/.provisio/profiles/jvanzyl/profile.yaml
+  profileName=${1}
+
+  if [ -d "${PWD}/.provisio/profiles/${profileName}" ]; then
+    profileDirectory="${PWD}/.provisio/profiles/${profileName}"
+  elif [ -d "${PROVISIO_ROOT}/profiles/${profileName}" ]; then
+   profileDirectory="${PROVISIO_ROOT}/profiles/${profileName}"
+  else
+    echo "The provisio profile '${profileName}' cannot be found. Exiting."
+    exit 1
+  fi
+  profileYamlFile="${profileDirectory}/profile.yaml"
+  os=$(uname)
+  arch=$(uname -m)
+
+  eval $(parse_yaml_with_lists $profileYamlFile)
+
+  # This produces a document we can use for testing tools written in different languages
+  eval 'tools=(${!'"tools_"'@})'
+  for i in "${tools[@]}"
+  do
+    if echo ${i} | grep -q 'version$'; then
+      # This final sed command is to fix the YAML parsing with does "-" --> "_" so we are flipping
+      # it back so all our naming works. The YAML parser does this so it can process lists properly.
+      tool=`echo ${i} | sed 's/tools_//' | sed 's/_version//' | sed 's/_/-/g'`
+      # Extract the version of the tool specified
+      version=${!i}
+      tool_descriptor=${PROVISIO_TOOLS}/${tool}/descriptor.yml
+      url=$(buildUrl ${tool_descriptor} ${version} ${os} ${arch})
+      echo "- id: ${tool}"
+      echo "  version: ${version}"
+      echo "  url: ${url}"
+    fi
+  done
 }
