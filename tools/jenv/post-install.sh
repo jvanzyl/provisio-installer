@@ -24,3 +24,5 @@ for jdk in $(ls ${profileBinaryDirectory}/java)
 do
   ${JENV_ROOT}/bin/jenv add "${profileBinaryDirectory}/java/${jdk}/Contents/Home"
 done
+
+[ ! -z "${tools_jenv_global}" ] && ${JENV_ROOT}/bin/jenv global ${tools_jenv_global}
