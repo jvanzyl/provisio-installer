@@ -3,15 +3,24 @@
 provisioFunctions=${1}
 profileYaml=${2}
 installLocation=${8}
+profileBinaryDirectory=${11}
 
 source ${provisioFunctions}
 create_variables ${profileYaml}
-JENV_ROOT=${HOME}/.jenv
-mkdir -p ${JENV_ROOT}/plugins 2>&1
+export JENV_ROOT=${installLocation}
+mkdir -p ${JENV_ROOT}/{plugins,versions} 2>&1
 
 for plugin in ${tools_jenv_plugins[*]}
 do
   ln -s \
     ${installLocation}/available-plugins/${plugin} \
     ${JENV_ROOT}/plugins/${plugin}
+done
+
+# TODO: (multiple-runtimes) Here we are introducing an implicit relationship of jenv on java. The descriptor
+# should be changed to reflect this and also order the installation of tools as java needs to be installed
+# before jenv can add JDKs
+for jdk in $(ls ${profileBinaryDirectory}/java)
+do
+  ${JENV_ROOT}/bin/jenv add "${profileBinaryDirectory}/java/${jdk}/Contents/Home"
 done

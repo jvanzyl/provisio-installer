@@ -139,7 +139,8 @@ function provisionTool() {
   unset installation
 
   toolDirectory=$(dirname ${toolConfigurationYaml})
-  profileVersionsDirectory="${PROVISIO_ROOT}/.bin/${profileName}/.versions"
+  profileBinaryDirectory="${PROVISIO_ROOT}/.bin/${profileName}"
+  profileVersionsDirectory="${profileBinaryDirectory}/.versions"
 
   (
     # We are doing everything inside a subshell with the tools directory so that when people
@@ -166,7 +167,8 @@ function provisionTool() {
         debug "yes, moving on..." 
         return
       else
-        rm -rf ${installLocation}
+        # TODO (multiple-rutimes) Temporary hack to allow multiple versions of Java to be installed.
+        [ "${id}" != "java" ] && rm -rf ${installLocation}
       fi
     fi
     debug "no, installing ..."
@@ -275,7 +277,8 @@ function provisionTool() {
         "${id}" \
         "${installLocation}" \
         "${os}" \
-        "${arch}"
+        "${arch}" \
+        "${profileBinaryDirectory}"
     fi
   )
 }
@@ -308,7 +311,12 @@ function provisionToolProfile() {
       # Extract the version of the tool specified
       version=${!i}
       tool_descriptor=${PROVISIO_TOOLS}/${tool}/descriptor.yml
-      provisionTool ${profileName} ${profileYamlFile} ${tool_descriptor} ${bin} ${version}
+      # TODO (multiple-rutimes) Temporary hack to allow multiple versions of Java to be installed.
+      version=$(echo ${version} | sed 's/ *//') # Remove any spaces before splitting
+      IFS=',' read -ra versions <<< "${version}"
+      for v in "${versions[@]}"; do
+        provisionTool ${profileName} ${profileYamlFile} ${tool_descriptor} ${bin} ${v}
+      done
       # After successful provisioning, record the version of the tool provisioned
       echo -n "${version}" > ${profileVersionsDirectory}/${tool}
     fi
