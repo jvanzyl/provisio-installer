@@ -1,2 +1,0 @@
-GRAALVM_HOME=${PROVISIO_PROFILE_BIN}/graalvm/Contents/Home
-export PATH="${GRAALVM_HOME}/bin:${PATH}"
