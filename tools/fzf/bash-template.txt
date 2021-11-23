@@ -1,4 +1,4 @@
-FZF_HOME=${PROVISIO_PROFILE_BIN}/fzf
+FZF_HOME=${PROVISIO_PROFILE_BIN}/fzf/{version}
 export PATH="${FZF_HOME}:${PATH}"
 
 # Only enable completion if we are in interactive mode

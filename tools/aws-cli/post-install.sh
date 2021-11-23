@@ -34,15 +34,21 @@ mkdir -p ${AWS_CLI_HOME} > /dev/null 2>&1
 work=$(mktemp -d)
 file=$(retrieveArtifact ${id} ${version} ${url} ${filename})
 
-if [[ ${os} == "Darwin" ]]; then
+if [ "${os}" = "Darwin" ]; then
   xar -C ${work} -xf ${file}
-  cd ${installLocation}/..
+  cd ${installLocation}
+  # This unpack the archive in ${bin}/aws-cli/{version}/aws-cli
   gzcat ${work}/aws-cli.pkg/Payload | cpio -id
+  # Doesn't seem to be a way to strip the leading entry as with tar so we have to move
+  # the files up one directory to make the layout consistent with Linux
+  mv ${installLocation}/aws-cli/* ${installLocation}
+  # Remove the straggling empty directory
+  rm -rf ${installLocation}/aws-cli 
   rm -rf ${work}
   # This in the path creates a problem with any Python installed
   # on the target machine
   chmod -x ${AWS_CLI_HOME}/Python
-elif [[ ${os} == "Linux" ]]; then
+elif [ "${os}" = "Linux" ]; then
   # This works cross installing on Darwin, there’s just an error
   # message about not being able to execute a script but otherwise
   # the installation carries on.

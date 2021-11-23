@@ -140,6 +140,7 @@ function provisionTool() {
 
   toolDirectory=$(dirname ${toolConfigurationYaml})
   profileBinaryDirectory="${PROVISIO_ROOT}/.bin/${profileName}"
+    # TODO: the .versions files and multiple runtimes are generally not supported right now
   profileVersionsDirectory="${profileBinaryDirectory}/.versions"
 
   (
@@ -148,13 +149,12 @@ function provisionTool() {
     cd ${toolDirectory}
     eval $(parse_yaml_with_lists ${toolConfigurationYaml})
     executableLocation="${bin}/${executable}"
-    installLocation="${bin}/${id}"
+    installLocation="${bin}/${id}/${version}"
 
-    # Executables are currently all stored in one directory, and installations live in their own directory. We
-    # check 
+    # Executables are currently all stored in one directory, and installations live in their own directory.
     installedVersion=$(cat ${profileVersionsDirectory}/${id} 2> /dev/null)
     if [ "${layout}" = "file" ]; then
-       debugN "Checking if the version (${version}:${installedVersion}) is up-to-date, and the executable ${executable} exists here: ${executableLocation} ... "      
+       debugN "Checking if the version (${version}:${installedVersion}) is up-to-date and the executable ${executable} exists here: ${executableLocation} ... "      
       if [ "${version}" = "${installedVersion}" -a -f "${executableLocation}" ]; then
         debug "yes, moving on ..."
         return
@@ -162,7 +162,7 @@ function provisionTool() {
         rm -f ${executableLocation}
       fi
     elif [ "${layout}" = "directory" ]; then
-      debugN "Checking if the version (${version}:${installedVersion}) if up-to-date, and the installation ${id} exists here: ${installLocation} ... "
+      debugN "Checking if the version (${version}:${installedVersion}) is up-to-date and the installation ${id} exists here: ${installLocation} ... "
       if [ "${version}" = "${installedVersion}" -a -d "${installLocation}" ]; then
         debug "yes, moving on..." 
         return
@@ -369,13 +369,14 @@ function installShellInitializationTemplate() {
       # This final sed command is to fix the YAML parsing with does "-" --> "_" so we are flipping
       # it back so all our naming works. The YAML parser does this so it can process lists properly.
       tool=`echo ${i} | sed 's/tools_//' | sed 's/_version//' | sed 's/_/-/g'`
+      version=${!i}
       toolBashTemplate=${PROVISIO_TOOLS}/${tool}/bash-template.txt
       if [ -f ${toolBashTemplate} ]; then
         echo >> ${profileBashTemplate}
         echo "## -----------------------------------------------------------------------------" >> ${profileBashTemplate}
         echo "## Addition from ${toolBashTemplate}" >> ${profileBashTemplate}
         echo "## -----------------------------------------------------------------------------" >> ${profileBashTemplate}
-        cat ${toolBashTemplate} >> ${profileBashTemplate}
+        cat ${toolBashTemplate} | sed -e "s/{version}/${version}/" >> ${profileBashTemplate}
       fi
     fi
   done

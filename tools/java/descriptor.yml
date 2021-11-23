@@ -4,7 +4,7 @@ name: Java
 defaultVersion: "jdk-11.0.12+7"
 layout: directory
 executable: java
-packaging: TARGZ
+packaging: TARGZ_STRIP
 osMappings:
   Darwin: mac
   Linux: linux

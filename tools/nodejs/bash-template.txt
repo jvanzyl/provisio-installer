@@ -1,2 +1,2 @@
-NODEJS_ROOT=${PROVISIO_PROFILE_BIN}/nodejs
+NODEJS_ROOT=${PROVISIO_PROFILE_BIN}/nodejs/{version}
 export PATH="${NODEJS_ROOT}/bin:${PATH}"

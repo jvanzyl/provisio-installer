@@ -4,7 +4,7 @@ name: GraalVM
 defaultVersion: 21.1.0
 layout: directory
 executable: java
-packaging: TARGZ
+packaging: TARGZ_STRIP
 osMappings:
   Darwin: darwin
   Linux: linux

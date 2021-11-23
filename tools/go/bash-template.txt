@@ -1,2 +1,2 @@
-GO_ROOT=${PROVISIO_PROFILE_BIN}/go
+GO_ROOT=${PROVISIO_PROFILE_BIN}/go/{version}
 export PATH="${GO_ROOT}/bin:${PATH}"
