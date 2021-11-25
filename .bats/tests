@@ -1,8 +1,17 @@
-#!/usr/bin/env bats
+#!/usr/bin/env bash
 
-source ../libexec/provisio-functions.bash
+# Take all the individual tests and roll them into one test suite 
 
-@test "Url encode version" {
-  result=$(urlEncode "jdk-11.0.12+7")
-  [ "${result}" = "jdk-11.0.12%2b7" ]
-}
+allTests="generated-tests.bats"
+
+echo '#!/usr/bin/env bats' > ${allTests}
+echo 'source ${PROVISIO_ROOT}/libexec/provisio-functions.bash' >> ${allTests}
+echo >> ${allTests}
+
+for testFile in $(find ${PROVISIO_ROOT}/tools -name test.bats)
+do
+  sed -e 's/^#.*$//' -e 's/^source.*$//' -e '/^$/d' ${testFile} >> ${allTests}
+  echo >> ${allTests}
+done
+
+bats ${allTests}

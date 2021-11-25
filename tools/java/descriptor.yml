@@ -5,6 +5,7 @@ defaultVersion: "jdk-11.0.12+7"
 layout: directory
 executable: java
 packaging: TARGZ_STRIP
+pathManagedBy: jenv
 osMappings:
   Darwin: mac
   Linux: linux

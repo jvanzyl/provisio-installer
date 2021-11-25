@@ -1,2 +1,0 @@
-BATS_HOME=${PROVISIO_PROFILE_BIN}/bats/{version}
-export PATH="${BATS_HOME}/bin:$PATH"

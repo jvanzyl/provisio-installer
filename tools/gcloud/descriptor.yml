@@ -1,10 +1,10 @@
 ---
-id: google-cloud-sdk
+id: gcloud
 name: Google Cloud SDK
 defaultVersion: 348.0.0
 layout: directory
 executable: gcloud
-packaging: TARGZ
+packaging: TARGZ_STRIP
 osMappings:
   Darwin: darwin
   Linux: linux

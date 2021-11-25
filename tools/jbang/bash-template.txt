@@ -1,2 +1,2 @@
-JBANG_ROOT=${PROVISIO_PROFILE_BIN}/jbang/{version}
-export PATH="${JBANG_ROOT}/bin:${PATH}"
+PROVISIO_JBANG_HOME=${PROVISIO_PROFILE_BIN}/jbang/{version}
+export PATH="${PROVISIO_JBANG_HOME}:${PATH}"

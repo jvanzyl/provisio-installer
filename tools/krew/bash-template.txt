@@ -1,1 +1,4 @@
-export PATH="${HOME}/.krew/bin:${PATH}"
+export KREW_ROOT=${PROVISIO_PROFILE_BIN}/krew/{version}
+export PATH=${KREW_ROOT}:${KREW_ROOT}/bin:${PATH}
+# TODO: this should be possible but there's a but in krew
+#export PATH=${KREW_ROOT}/bin:${PATH}

@@ -4,6 +4,7 @@ bin
 init.bash
 profiles/
 target/
+generated*
 
 *.iml
 .idea/

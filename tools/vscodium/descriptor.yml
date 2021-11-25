@@ -5,6 +5,7 @@ defaultVersion: 1.59
 layout: directory
 packaging: ZIP
 executable: VSCodium.app
+pathManagedBy: provisio
 osMappings:
   Darwin: darwin
   Linux: linux
