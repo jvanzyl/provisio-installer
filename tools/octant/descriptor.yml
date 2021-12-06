@@ -1,7 +1,7 @@
 ---
 id: octant
 name: Octant
-defaultVersion: 0.22.0
+defaultVersion: 0.25.0
 layout: file
 executable: octant
 packaging: TARGZ_STRIP
