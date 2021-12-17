@@ -1,0 +1,15 @@
+---
+id: nova
+name: Nova
+defaultVersion: 2.3.4
+layout: file
+executable: nova
+packaging: TARGZ
+osMappings:
+  Darwin: darwin
+  Linux: linux
+archMappings:
+  x86_64: amd64
+# https://github.com/FairwindsOps/nova/releases/download/2.3.4/nova_2.3.4_darwin_amd64.tar.gz
+# https://github.com/FairwindsOps/nova/releases/download/2.3.4/nova_2.3.4_linux_amd64.tar.gz
+urlTemplate: https://github.com/FairwindsOps/nova/releases/download/{version}/nova_{version}_{os}_{arch}.tar.gz
