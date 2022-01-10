@@ -12,3 +12,4 @@ archMappings:
   x86_64: amd64
 # https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
 urlTemplate: https://github.com/upx/upx/releases/download/v{version}/upx-{version}-{arch}_{os}.tar.xz
+tarSingleFileToExtract: upx-3.96-amd64_linux/upx 
