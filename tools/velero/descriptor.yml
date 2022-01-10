@@ -13,4 +13,4 @@ archMappings:
 # https://github.com/vmware-tanzu/velero/releases/download/v1.6.2/velero-v1.6.2-linux-amd64.tar.gz
 # https://github.com/vmware-tanzu/velero/releases/download/v1.6.2/velero-v1.6.2-darwin-amd64.tar.gz
 urlTemplate: https://github.com/vmware-tanzu/velero/releases/download/v{version}/velero-v{version}-{os}-{arch}.tar.gz
-tarSingleFileToExtract: ./velero-v{version}-{os}-{arch}/velero
+tarSingleFileToExtract: velero-v{version}-{os}-{arch}/velero
