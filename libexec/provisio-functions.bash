@@ -235,14 +235,14 @@ function provisionTool() {
               -e "s@{os}@${os}@g" \
               -e "s@{arch}@${arch}@g"`
 
-        tar xzf ${file} ${tarSingleFileToExtract}
+        tar xf ${file} ${tarSingleFileToExtract}
         mv ${tarSingleFileToExtract} ${executableLocation}
       else
         if [ ! -z "${layout}" -a "${layout}" = "directory" ]; then
           mkdir -p ${installLocation} > /dev/null 2>&1
-          tar xzf ${file} ${stripComponents} -C ${installLocation}
+          tar xf ${file} ${stripComponents} -C ${installLocation}
         else
-          tar xzf ${file} ${stripComponents} -C ${bin}
+          tar xf ${file} ${stripComponents} -C ${bin}
         fi
       fi
     elif [ "${packaging}" = "FILE" ]; then
