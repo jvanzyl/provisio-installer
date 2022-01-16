@@ -2,8 +2,9 @@
 id: fzf
 name: fzf
 defaultVersion: 0.27.2
-layout: directory
 executable: fzf
+layout: directory
+paths: .
 packaging: ZIP
 osMappings:
   Darwin: darwin

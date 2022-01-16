@@ -7,8 +7,8 @@ source ${PROVISIO_FUNCTIONS}
 testResourcesDirectory="${PROVISIO_ROOT}/target/test-resources"
 rm -rf ${testResourcesDirectory} > /dev/null 2>&1
 mkdir -p ${testResourcesDirectory} > /dev/null 2>&1
-provisioTests "test" > ${testResourcesDirectory}/test-tool-urls.yaml
 
+# This generates a tool profile with all existing tools
 PROFILE=${testResourcesDirectory}/test-profile.yaml
 echo "tools:" > ${PROFILE}
 for d in `find ${PROVISIO_ROOT}/tools -name descriptor.yml`
@@ -17,3 +17,5 @@ do
   echo "  ${id}:" >> ${PROFILE}
   echo "    version: ${defaultVersion}" >> ${PROFILE}
 done
+
+provisioTests "test" > ${testResourcesDirectory}/test-tool-urls.yaml

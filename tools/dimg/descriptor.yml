@@ -2,7 +2,8 @@
 id: dimg
 name: Dimg
 defaultVersion: master
-layout: file
+layout: directory
 executable: dimg
-packaging: FILE
-urlTemplate: https://raw.githubusercontent.com/jvanzyl/dimg/{version}/dimg
+packaging: TARGZ_STRIP
+urlTemplate: https://api.github.com/repos/jvanzyl/dimg/tarball/{version}
+fileNameFromContentDisposition: true

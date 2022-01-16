@@ -3,6 +3,7 @@ id: graalvm
 name: GraalVM
 defaultVersion: 21.1.0
 layout: directory
+paths: Contents/Home/bin
 executable: java
 packaging: TARGZ_STRIP
 pathManagedBy: jenv

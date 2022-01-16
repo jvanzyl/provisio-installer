@@ -3,6 +3,7 @@ id: krew
 name: Krew
 defaultVersion: 0.4.2
 layout: directory
+paths: bin
 executable: krew
 packaging: TARGZ
 osMappings:
@@ -13,4 +14,4 @@ archMappings:
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.2/krew-darwin_amd64.tar.gz
 # https://github.com/kubernetes-sigs/krew/releases/download/v0.4.2/krew-linux_amd64.tar.gz
 urlTemplate: https://github.com/kubernetes-sigs/krew/releases/download/v{version}/krew-{os}_{arch}.tar.gz
-#tarSingleFileToExtract: ./krew-{os}_{arch}
+tarSingleFileToExtract: ./krew-{os}_{arch}

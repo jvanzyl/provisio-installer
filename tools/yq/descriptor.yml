@@ -13,4 +13,4 @@ archMappings:
 # https://github.com/mikefarah/yq/releases/download/v4.9.8/yq_linux_amd64.tar.gz
 # https://github.com/mikefarah/yq/releases/download/v4.9.8/yq_darwin_amd64.tar.gz
 urlTemplate: https://github.com/mikefarah/yq/releases/download/v{version}/yq_{os}_{arch}.tar.gz
-tarSingleFileToExtract: ./yq_{os}_{arch}
+tarSingleFileToExtract: yq_{os}_{arch}

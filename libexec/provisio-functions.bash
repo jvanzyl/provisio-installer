@@ -299,6 +299,9 @@ function provisionToolProfile() {
   profileYamlFile=${2}
   bin=${3}
 
+  echo ${profileName}
+  echo ${profileYamlFile}
+
   profileVersionsDirectory="${PROVISIO_ROOT}/.bin/${profileName}/.versions"
   mkdir -p ${profileVersionsDirectory} > /dev/null 2>&1
 
@@ -569,9 +572,10 @@ function provisioTests() {
       tool_descriptor=${PROVISIO_TOOLS}/${tool}/descriptor.yml
       # TODO: generate URL for testing
       #url=$(buildUrl ${tool_descriptor} ${version} ${os} ${arch})
+      create_variables $tool_descriptor
       echo "- id: ${tool}"
       echo "  version: ${version}"
-      echo "  url: ${url}"
+      echo "  url: ${urlTemplate}"
     fi
   done
 }

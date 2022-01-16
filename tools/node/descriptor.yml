@@ -3,6 +3,7 @@ id: node
 name: NodeJS
 defaultVersion: 14.17.5
 layout: directory
+paths: bin
 executable: node
 packaging: TARGZ_STRIP
 osMappings:

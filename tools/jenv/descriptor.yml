@@ -6,3 +6,4 @@ executable: jenv
 packaging: TARGZ_STRIP
 defaultVersion: master
 urlTemplate: https://api.github.com/repos/jenv/jenv/tarball/{version}
+fileNameFromContentDisposition: true

@@ -3,6 +3,7 @@ id: java
 name: Java
 defaultVersion: "jdk-11.0.12+7"
 layout: directory
+paths: Contents/Home/bin
 executable: java
 packaging: TARGZ_STRIP
 pathManagedBy: jenv
@@ -11,6 +12,7 @@ osMappings:
   Linux: linux
 archMappings:
   x86_64: x64
+fileNameFromContentDisposition: true
 
 # arch (x64 | aarch64)
 # heap_size (default to normal)

@@ -3,6 +3,7 @@ id: jbang
 name: JBang
 defaultVersion: 0.79.0
 layout: directory
+paths: .
 executable: jbang
 packaging: ZIP_JUNK
 # https://github.com/jbangdev/jbang/releases/download/v0.79.0/jbang.zip

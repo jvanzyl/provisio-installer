@@ -3,6 +3,7 @@ id: go
 name: Go
 defaultVersion: 1.16.6
 layout: directory
+paths: bin
 executable: go
 packaging: TARGZ_STRIP
 osMappings:
